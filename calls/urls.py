@@ -12,5 +12,7 @@ urlpatterns = [
     path('list_calls_client/<int:user_id>/', views.list_calls_client, name="list_calls_client"),
     path('update_call_client/<int:call_id>/', views.update_call_client, name="update_call_client"),
     path('new_call_client/', views.new_call_client, name="new_call_client"),
+    path('list_calls_non_att/', views.list_calls_non_att, name="list_calls_non_att"),
+    path('update_teammember/<int:call_id>', views.update_teammember, name="update_teammember"),
 
 ] 

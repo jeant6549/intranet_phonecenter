@@ -65,6 +65,11 @@
                 <a class="nav-link" href="{% url 'calls:list_calls' %}">Liste appels</a>
               </li>
             </ul>
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'calls:list_calls_non_att' %}">Appels non attribués</a>
+              </li>
+            </ul>
           {% endif %}
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">

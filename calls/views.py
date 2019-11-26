@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -91,7 +92,7 @@ def update_call_client(request, call_id):
         form = UpdateCallFormClient(request.POST, instance=call)
         if form.is_valid():
             form.save()
-            return redirect('../../list_calls')
+            return HttpResponseRedirect(reverse("calls:list_calls"))
 
     else:
         form = UpdateCallFormClient(instance=call)
@@ -122,3 +123,21 @@ def new_call_client(request):
             'form':form,
         }
     )
+
+@user_passes_test(is_teammember)
+def list_calls_non_att(request):
+    calls = Call.objects.filter(teammember__isnull=True).order_by("-id")
+    return render(
+        request,
+        'calls/calls_list_non_att.html',
+        {
+            'calls': calls,
+        }
+    )
+
+@user_passes_test(is_teammember)
+def update_teammember(request, call_id):
+    call = Call.objects.get(id=call_id)
+    call.teammember = request.user.teammember
+    call.save()
+    return HttpResponseRedirect(reverse("calls:list_calls"))
