@@ -38,6 +38,19 @@ class CallTag(BaseModel):
         verbose_name = "Tag d'appel"
         verbose_name_plural = "Tags d'appels"
 
+class CallNote(BaseModel):
+    name = models.CharField(
+        verbose_name = "Note",
+        max_length = 100,
+        )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Note"
+        verbose_name_plural = "Notes"
+
 class Call(BaseModel):
 
     title = models.CharField(
@@ -68,6 +81,11 @@ class Call(BaseModel):
     tags = models.ManyToManyField(
         "CallTag",
         verbose_name="Tags",
+        )
+
+    note = models.CharField(
+        "CallNote",
+        max_length=100,
         )
 
     content = models.TextField(

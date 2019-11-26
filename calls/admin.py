@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import CallCategory, CallTag, Call
+from .models import CallCategory, CallTag, Call, CallNote
 
 class CallAdmin(admin.ModelAdmin):
     list_display = ('created', 'customer', 'teammember', 'solved', 'title', )
@@ -10,4 +10,5 @@ class CallAdmin(admin.ModelAdmin):
 
 admin.site.register(CallCategory)
 admin.site.register(CallTag)
+admin.site.register(CallNote)
 admin.site.register(Call, CallAdmin)

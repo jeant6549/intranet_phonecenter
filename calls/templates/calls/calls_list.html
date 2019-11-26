@@ -12,6 +12,13 @@
                 <th scope="col">Titre</th>
                 <th scope="col">Contenu</th>
                 <th scope="col">Date</th>
+                {% if user.user_type == 2 %}
+                <th scope="col">Note</th>
+                {% endif %}
+                {% if request.user.is_superuser %}
+                <th scope="col">Team member</th>
+                {% endif %}
+                <th scope="col">Résolu</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
             </tr>
@@ -22,12 +29,26 @@
                 <th scope="row">{{ list_calls.title }}</th>
                 <th scope="row">{{ list_calls.content }}</th>
                 <th scope="row">{{ list_calls.created }}</th>
+                {% if user.user_type == 2 %}
+                <th scope="col">{{ list_calls.note }}</th>
+                {% endif %}
+                {% if request.user.is_superuser %}
+                <th scope="col">{{ list_calls.teammember }}</th>
+                {% endif %}
+                <th scope="row">{{ list_calls.solved }}</th>
+                {% if request.user.is_superuser %}
                 <td>
                     <a class="btn btn-primary" href="{% url 'calls:update_call' call_id=list_calls.id %}" role="button">Edit l'appel</a>
                 </td>
                 <td>
                     <a class="btn btn-primary" href="{% url 'calls:delete_call' call_id=list_calls.id %}" role="button">Supprimer</a>
                 </td>
+                {% endif %}
+                {% if user.user_type == 2 %}
+                <td>
+                    <a class="btn btn-primary" href="{% url 'calls:update_call_client' call_id=list_calls.id %}" role="button">Edit l'appel</a>
+                </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

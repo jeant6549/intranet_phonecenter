@@ -37,12 +37,24 @@
               <a class="nav-link" href="{% url 'users:myaccount' %}">{{ user.get_username }}</a>
             </li>
           </ul>
+          {% if user.user_type == 2 %}
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'calls:list_calls_client' user_id=user.id %}">Mes appels</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'calls:new_call_client' %}">Nouvel appel</a>
+            </li>
+          </ul>
+          {% endif %}
+          {% if request.user.is_superuser %}
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
                 <a class="nav-link" href="{% url 'calls:new_call' %}">Nouvel appel</a>
               </li>
             </ul>
-          {% if request.user.is_superuser %}
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
                 <a class="nav-link" href="{% url 'users:role_attribution' %}">Attribuer des rôles</a>
