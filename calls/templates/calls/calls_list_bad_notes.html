@@ -12,7 +12,7 @@
                 <th scope="col">Titre</th>
                 <th scope="col">Contenu</th>
                 <th scope="col">Date</th>
-                <th scope="col"></th>
+                <th scope="col">Note</th>
             </tr>
         </thead>
         <tbody>
@@ -21,9 +21,7 @@
                 <th scope="row">{{ list_calls.title }}</th>
                 <th scope="row">{{ list_calls.content }}</th>
                 <th scope="row">{{ list_calls.created }}</th>
-                <td>
-                    <a class="btn btn-primary" href="{% url 'calls:update_teammember' call_id=list_calls.id %}" role="button">M'attribuer ce call</a>
-                </td>
+                <th scope="row">{{ list_calls.note }}</th>
             </tr>
         {% endfor %}
         </tbody>

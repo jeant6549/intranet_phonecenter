@@ -14,5 +14,9 @@ urlpatterns = [
     path('new_call_client/', views.new_call_client, name="new_call_client"),
     path('list_calls_non_att/', views.list_calls_non_att, name="list_calls_non_att"),
     path('update_teammember/<int:call_id>', views.update_teammember, name="update_teammember"),
+    path('list_calls_client_resolus/<int:user_id>', views.list_calls_client_resolus, name="list_calls_client_resolus"),
+    path('update_note/<int:call_id>', views.update_note, name="update_note"),
+    path('calls_mal_notes/', views.calls_mal_notes, name="calls_mal_notes"),
+
 
 ] 

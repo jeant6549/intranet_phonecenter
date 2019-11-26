@@ -45,6 +45,11 @@
           </ul>
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
+              <a class="nav-link" href="{% url 'calls:list_calls_client_resolus' user_id=user.id %}">Noter un appel</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
               <a class="nav-link" href="{% url 'calls:new_call_client' %}">Nouvel appel</a>
             </li>
           </ul>
@@ -53,6 +58,11 @@
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
                 <a class="nav-link" href="{% url 'calls:new_call' %}">Nouvel appel</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'calls:calls_mal_notes' %}">Appels mal notés</a>
               </li>
             </ul>
             <ul class="navbar-nav mr-auto">

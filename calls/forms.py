@@ -54,3 +54,15 @@ class NewCallFormClient(ModelFormWithSubmit):
     class Meta:
         model = Call
         fields = ('title', 'tags', 'content', )
+
+
+class NoteFormClient(ModelFormWithSubmit):
+
+    note = forms.ModelChoiceField(
+        widget=forms.RadioSelect,
+        queryset=CallNote.objects.all(),
+        )
+
+    class Meta:
+        model = Call
+        fields = ('title', 'note', )

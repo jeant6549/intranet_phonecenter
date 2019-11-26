@@ -4,8 +4,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import redirect
+from django.db.models import Q
 
-from .forms import NewCallForm, UpdateCallForm, UpdateCallFormClient, NewCallFormClient
+from .forms import NewCallForm, UpdateCallForm, UpdateCallFormClient, NewCallFormClient, NoteFormClient
 from .models import Call
 
 def is_teammember(user=None):
@@ -141,3 +142,44 @@ def update_teammember(request, call_id):
     call.teammember = request.user.teammember
     call.save()
     return HttpResponseRedirect(reverse("calls:list_calls"))
+
+@user_passes_test(is_customer)
+def list_calls_client_resolus(request, user_id):
+    calls = Call.objects.filter(customer_id=user_id, solved=False, note='').order_by("-id")
+    return render(
+        request,
+        'calls/calls_list_notes.html',
+        {
+            'calls': calls,
+        }
+    )
+
+@user_passes_test(is_teammember)
+def update_note(request, call_id):
+    call = Call.objects.get(id=call_id)
+    if request.method == 'POST':
+        form = NoteFormClient(request.POST, instance=call)
+        if form.is_valid():
+            form.save()
+
+    else:
+        form = NoteFormClient()
+    return render(
+        request,
+        'utils/form.html',
+        {
+            'title': "Noter un appel",
+            'form':form,
+        }
+    )
+
+
+def calls_mal_notes(request):
+    calls = Call.objects.filter(Q(note=0) | Q(note=1) | Q(note=2) | Q(note=3)).order_by("-id")
+    return render(
+        request,
+        'calls/calls_list_bad_notes.html',
+        {
+            'calls': calls,
+        }
+    )
