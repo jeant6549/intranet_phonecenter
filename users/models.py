@@ -30,6 +30,13 @@ class UserProfile(AbstractUser, BaseModel):
 	    null=True,
 	    )
 
+	newsletter_agreement = models.BooleanField(
+        verbose_name = "Recevoir des newsletter",
+        help_text = "Une par semaine maximum",
+        default=False,
+        db_index=True,
+        )
+
 	def __str__(self):
 	    if self.display_name :
 	        return self.display_name
@@ -53,6 +60,9 @@ class TeamMember(BaseModel):
         default=1,
         )
 
+    def __str__(self):
+        return "%s (support_level : %d)" % (str(self.teammember), self.support_level)
+
 
 class Customer(BaseModel):
 
@@ -65,3 +75,6 @@ class Customer(BaseModel):
     credits = models.IntegerField(
         default=0,
         )
+
+    def __str__(self):
+        return "%s (credits : %d)" % (str(self.customer), self.credits)
